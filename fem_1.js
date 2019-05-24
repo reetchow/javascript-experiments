@@ -153,7 +153,7 @@ const _ = {};
 
 // basic definition of a lodash each function
 _.each = (list, callback) => {
-	if(Array.isArray) {
+	if(Array.isArray(list)) {
 		for(let i = 0; i < list.length; i++) {
 			callback(list[i], i, list);
 		}
@@ -189,7 +189,7 @@ const makeBroken = (item) => {
 };
 
 _.map = (list, callback) => {
-	output = [];
+	const output = [];
 	if(Array.isArray(list)) {
 		for(let i = 0; i < list.length; i++) {
 			output.push(callback(list[i]));
@@ -205,3 +205,33 @@ _.map = (list, callback) => {
 brokenWeapons = _.map(weapons, makeBroken);
 
 console.log(brokenWeapons);
+
+_.filter = (list, callback) => {
+  // only contains values that return true from the callback
+  const output = [];
+  
+  for(let i = 0; i < list.length; i++) {
+    if(callback(list[i], i, list) === true) {
+      output.push(list[i]);
+    }
+  }
+
+  /* can also use _.each
+   *
+   * _.each(list, () => {
+   *   if(callback(list[i], i, list)) {
+   *     output.push(list[i]);
+   *   }
+   * });
+  */
+
+  return output;
+}
+
+names = ['reet', 'sean', 'jordan', 'jp', 'eamon'];
+
+names = _.filter(names, (name, i, list) => name.length > 4 ? true : false );
+
+console.log(names);
+
+
