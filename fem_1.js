@@ -234,4 +234,50 @@ names = _.filter(names, (name, i, list) => name.length > 4 ? true : false );
 
 console.log(names);
 
+// Kyle Simpson's You Don't Know JS workshop
+// Seems faster paced and more geared towards intermediate and advanced users of Javascript
 
+console.log("You don't know JS");
+
+console.log(Object.is(NaN, NaN));
+
+if(!Object.is || true) {
+	Object.is = (a, b) => {
+		if(Number.isNaN(a) && Number.isNaN(b)) { // NaN doesn't equal itself... wut
+			return true;
+		} else if(a === 0 || b === 0) {
+			return isNegZero(a) == isNegZero(b); // 0 === -0 also wut
+		} else {
+			return a === b;
+		}
+
+		function isNegZero(v) {
+			return v == 0 && (1/v) == -Infinity
+		}
+	};
+}
+
+// tests:
+console.log('Object.is Tests');
+console.log(Object.is(42,42) === true);
+console.log(Object.is("foo","foo") === true);
+console.log(Object.is(false,false) === true);
+console.log(Object.is(null,null) === true);
+console.log(Object.is(undefined,undefined) === true);
+console.log(Object.is(NaN,NaN) === true);
+console.log(Object.is(-0,-0) === true);
+console.log(Object.is(0,0) === true);
+
+console.log(Object.is(-0,0) === false);
+console.log(Object.is(0,-0) === false);
+console.log(Object.is(0,NaN) === false);
+console.log(Object.is(NaN,0) === false);
+console.log(Object.is(42,"42") === false);
+console.log(Object.is("42",42) === false);
+console.log(Object.is("foo","bar") === false);
+console.log(Object.is(false,true) === false);
+console.log(Object.is(null,undefined) === false);
+console.log(Object.is(undefined,null) === false);
+
+let a = ["a", 'b', 'hi'];
+console.log(a.toString());
